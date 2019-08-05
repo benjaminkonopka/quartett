@@ -1,1 +1,2 @@
-export const CHANGE_VOLUME = "CHANGE_VOLUME";
+export const CHANGE_VOLUME = 'CHANGE_VOLUME';
+export const SOMETHING_ELSE = 'SOMETHING_ELSE';
