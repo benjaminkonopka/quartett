@@ -1,13 +1,13 @@
 import React from 'react';
 
 import VolumeChange from './components/VolumeChange';
-import Card from './components/Card';
+import Cards from './components/Cards';
 
 function App() {
   return (
     <div className="App">
       <VolumeChange />
-      <Card />
+      <Cards />
     </div>
   );
 }
