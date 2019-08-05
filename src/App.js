@@ -1,13 +1,15 @@
 import React from 'react';
-
-import VolumeChange from './components/VolumeChange';
-import Cards from './components/Cards';
+import MainMenu from './components/MainMenu';
+import GameBoard from './components/GameBoard';
 
 function App() {
   return (
     <div className="App">
-      <VolumeChange />
-      <Cards />
+      <span>HIER MUSS VERMUTLICH DER ROUTER HIN</span>
+      <div>
+        <MainMenu />
+        <GameBoard />
+      </div>
     </div>
   );
 }
