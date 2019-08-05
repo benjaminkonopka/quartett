@@ -17,7 +17,7 @@ class VolumeChange extends PureComponent {
       <div>
         <h3>current volume: {volume}</h3>
 
-        <button type="button" onClick={this.changeVolume}>
+        <button type="button" onClick={() => this.changeVolume()}>
           Change Volume
         </button>
       </div>
