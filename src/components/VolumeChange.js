@@ -1,31 +1,48 @@
-import React, { Component } from 'react'
-import { connect } from "react-redux"
-import { changeVolumeTo } from "../redux/actions"
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { changeVolumeToAction } from '../redux/actions';
 
-class VolumeChange extends Component {
-    changeVolume = () => {
-        const newVolume = Math.round(Math.random() * 100);
-        this.props.changeVolumeTo({ volume: newVolume });
-    }
-    render() {
-        return (
-            <div>
-                <h3>
-                    current volume: {this.props.volume}
-                </h3>
+class VolumeChange extends PureComponent {
+  changeVolume() {
+    const { changeVolumeTo } = this.props;
+    const newVolume = Math.round(Math.random() * 100);
+    changeVolumeTo({ volume: newVolume });
+  }
 
-                <button onClick={this.changeVolume}>Change Volume</button>
-            </div>
-        )
-    }
+  render() {
+    const { volume } = this.props;
+    return (
+      <div>
+        <h3>current volume: {volume}</h3>
+
+        <button type="button" onClick={this.changeVolume}>
+          Change Volume
+        </button>
+      </div>
+    );
+  }
 }
 
+// PropTypes for this Component
+VolumeChange.propTypes = {
+  volume: PropTypes.number.isRequired,
+  changeVolumeTo: PropTypes.func.isRequired,
+};
+
+// Map Redux State To Props
 const mapStateToProps = state => {
-    return { volume: state.gameSettings.volume };
-}
+  return { volume: state.gameSettings.volume };
+};
 
+// Map Redux Actions To Props
+const mapDispatchToProps = {
+  changeVolumeTo: changeVolumeToAction,
+};
+
+// Connect Props and Dispatch to Component
 export default connect(
-    mapStateToProps,
-    { changeVolumeTo }
+  mapStateToProps,
+  mapDispatchToProps
 )(VolumeChange);
