@@ -2,19 +2,22 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { startGameAction, stopGameAction } from '../redux/actions';
+import {
+  setGameStateActiveAction,
+  setGameStateInactiveAction,
+} from '../redux/actions';
 
 class MainMenu extends PureComponent {
   render() {
-    const { startGame, stopGame, gameState } = this.props;
+    const { setGameStateActive, setGameStateInactive, gameState } = this.props;
 
     const startButton =
       gameState === 'ACTIVE' ? (
-        <button type="button" onClick={stopGame}>
+        <button type="button" onClick={setGameStateInactive}>
           Stop Game (currenty {gameState})
         </button>
       ) : (
-        <button type="button" onClick={startGame}>
+        <button type="button" onClick={setGameStateActive}>
           Start Game (currenty {gameState})
         </button>
       );
@@ -25,8 +28,8 @@ class MainMenu extends PureComponent {
 
 // PropTypes for this Component
 MainMenu.propTypes = {
-  startGame: PropTypes.func.isRequired,
-  stopGame: PropTypes.func.isRequired,
+  setGameStateActive: PropTypes.func.isRequired,
+  setGameStateInactive: PropTypes.func.isRequired,
   gameState: PropTypes.string.isRequired,
 };
 
@@ -37,8 +40,8 @@ const mapStateToProps = state => {
 
 // Map Redux Actions To Props
 const mapDispatchToProps = {
-  startGame: startGameAction,
-  stopGame: stopGameAction,
+  setGameStateActive: setGameStateActiveAction,
+  setGameStateInactive: setGameStateInactiveAction,
 };
 
 // Connect Props and Dispatch to Component

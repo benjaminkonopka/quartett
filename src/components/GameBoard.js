@@ -14,23 +14,28 @@ class GameBoard extends PureComponent {
       <div>
         {gameState === 'ACTIVE' ? (
           <React.Fragment>
+            {/* <!-- ROUND COUNTER --> */}
             <div>
               <span>CurrentRound: {currentRound}</span>
             </div>
+            {/* <!-- PLAYER --> */}
             <div>
               <ul>
-                {/* Move to own component with icons etc. Separate Player1 from other Players */}
+                {/* Move to own component with icons etc. 
+                  Separate Player1 from other Players */}
                 {Object.keys(currentPlayers).map(playerKey => {
-                  const playerId = currentPlayers[playerKey];
-                  if (playerId === '') return '';
+                  const playerId = currentPlayers[playerKey].id;
                   return (
                     <li key={playerId}>
                       {playerKey}: {getPlayerById(playerId).name}
                     </li>
                   );
                 })}
+                {/* --- */}
               </ul>
             </div>
+            {/* <!-- CARDS --> */}
+            <div>CARDS</div>
           </React.Fragment>
         ) : (
           'Currently no game active'
