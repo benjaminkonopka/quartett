@@ -8,18 +8,32 @@ import {
 } from '../redux/actions';
 
 class MainMenu extends PureComponent {
+  startGameWithPlayers(playerCount) {
+    const { setGameStateActive } = this.props;
+    setGameStateActive({ playerCount });
+  }
+
   render() {
-    const { setGameStateActive, setGameStateInactive, gameState } = this.props;
+    const { setGameStateInactive, gameState } = this.props;
 
     const startButton =
       gameState === 'ACTIVE' ? (
         <button type="button" onClick={setGameStateInactive}>
-          Stop Game (currenty {gameState})
+          Stop Game
         </button>
       ) : (
-        <button type="button" onClick={setGameStateActive}>
-          Start Game (currenty {gameState})
-        </button>
+        <div>
+          Start Game
+          <button type="button" onClick={() => this.startGameWithPlayers(2)}>
+            2 Players
+          </button>
+          <button type="button" onClick={() => this.startGameWithPlayers(3)}>
+            3 Players
+          </button>
+          <button type="button" onClick={() => this.startGameWithPlayers(4)}>
+            4 Players
+          </button>
+        </div>
       );
 
     return <div>{startButton}</div>;

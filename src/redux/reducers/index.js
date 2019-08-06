@@ -9,8 +9,13 @@ const rootReducer = (state = {}, action) => {
   return {
     gameSettings: gameSettings(state.gameSettings, { ...action }),
     cards: cards(state.cards, { ...action }),
-    game: game(state.game, { ...action, cards: state.cards }),
     players: players(state.players, { ...action }),
+    // GAME NEEDS ALL CARDS AND PLAYER INFOS
+    game: game(state.game, {
+      ...action,
+      cards: state.cards,
+      players: state.players,
+    }),
   };
 };
 
