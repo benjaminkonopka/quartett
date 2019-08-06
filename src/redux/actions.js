@@ -2,6 +2,7 @@ import {
   CHANGE_VOLUME,
   SET_GAME_STATE_ACTIVE,
   SET_GAME_STATE_INACTIVE,
+  CARD_VALUE_SELECTED,
 } from './actionTypes';
 
 export const changeVolumeToAction = payload => ({
@@ -19,4 +20,11 @@ export const setGameStateActiveAction = payload => ({
 });
 export const setGameStateInactiveAction = () => ({
   type: SET_GAME_STATE_INACTIVE,
+});
+
+export const selectCardValueAction = payload => ({
+  type: CARD_VALUE_SELECTED,
+  payload: {
+    seqId: payload.seqId,
+  },
 });
