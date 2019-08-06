@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import Card from './Card';
 // import { someAction } from '../redux/actions';
 
 class GameBoard extends PureComponent {
@@ -18,24 +19,29 @@ class GameBoard extends PureComponent {
             <div>
               <span>CurrentRound: {currentRound}</span>
             </div>
-            {/* <!-- PLAYER --> */}
+            {/* <!-- PLAYERS --> */}
             <div>
-              <ul>
-                {/* Move to own component with icons etc. 
+              {/* Move to own component with icons etc. 
                   Separate Player1 from other Players */}
-                {Object.keys(currentPlayers).map(playerKey => {
-                  const playerId = currentPlayers[playerKey].id;
-                  return (
-                    <li key={playerId}>
+              {Object.keys(currentPlayers).map(playerKey => {
+                const playerId = currentPlayers[playerKey].id;
+                const currentCard =
+                  currentPlayers[playerKey].deck[currentRound];
+                return (
+                  <div key={playerId}>
+                    {/* PLAYER NAME */}
+                    <div>
                       {playerKey}: {getPlayerById(playerId).name}
-                    </li>
-                  );
-                })}
-                {/* --- */}
-              </ul>
+                    </div>
+                    {/* PLAYER CARD */}
+                    <div>
+                      <Card card={currentCard} />
+                    </div>
+                  </div>
+                );
+              })}
+              {/* --- */}
             </div>
-            {/* <!-- CARDS --> */}
-            <div>CARDS</div>
           </React.Fragment>
         ) : (
           'Currently no game active'
