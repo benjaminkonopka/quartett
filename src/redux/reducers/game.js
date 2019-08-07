@@ -3,11 +3,10 @@ import {
   SET_GAME_STATE_INACTIVE,
   CARD_VALUE_SELECTED,
 } from '../actionTypes';
-import { shuffle, getDistribution } from '../../helper';
+import { shuffle } from '../../helper';
 
 const initialState = {
   gameState: 'INACTIVE',
-  currentRound: 0,
   currentPlayers: {},
 };
 
@@ -29,31 +28,34 @@ const shuffleCardsIntoPlayersDecks = (currentPlayers, cards) => {
   // SHUFFLE CARDS INTO EACH PLAYERS DECK
   const shuffledCards = shuffle(cards);
   const playerCount = Object.keys(currentPlayers).length;
-  const cardsPerPlayer = getDistribution(playerCount, shuffledCards.length);
+  const cardsPerPlayer = Math.floor(shuffledCards.length / playerCount);
   const currentPlayersWithCards = {};
 
-  for (let i = 0; i < playerCount; i += 1) {
-    currentPlayersWithCards[`player${i + 1}`] = {
-      ...currentPlayers[`player${i + 1}`], // TODO REWORK ?
-      deck: shuffledCards.slice(i * cardsPerPlayer, (i + 1) * cardsPerPlayer),
+  Object.keys(currentPlayers).forEach((key, index) => {
+    currentPlayersWithCards[key] = {
+      ...currentPlayers[key],
+      deck: shuffledCards.slice(
+        index * cardsPerPlayer,
+        (index + 1) * cardsPerPlayer
+      ),
     };
-  }
+  });
 
   return currentPlayersWithCards;
 };
 
 // TODO EXPORT LOGIC TO SEPERATE FILES ???
-const removeCardsFromPlayersDecks = state => {
-  const playerCount = Object.keys(state.currentPlayers).length;
-  const currentPlayers = {};
+const removeCardsFromPlayersDecks = currentPlayers => {
+  const currentPlayersUpdated = {};
 
-  for (let i = 0; i < playerCount; i += 1) {
-    currentPlayers[`player${i + 1}`] = {
-      ...state.currentPlayers[`player${i + 1}`], // TODO REWORK ?
+  Object.keys(currentPlayers).forEach(key => {
+    currentPlayersUpdated[key] = {
+      ...currentPlayers[key],
       deck: [],
     };
-  }
-  return currentPlayers;
+  });
+
+  return currentPlayersUpdated;
 };
 
 // TODO EXPORT LOGIC TO SEPERATE FILES ???
@@ -140,7 +142,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         gameState: 'INACTIVE',
-        currentPlayers: removeCardsFromPlayersDecks(state),
+        currentPlayers: removeCardsFromPlayersDecks(state.currentPlayers),
       };
     case CARD_VALUE_SELECTED: {
       // COMPARE CARDS
@@ -161,7 +163,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentPlayers: currentPlayersNew,
-        currentRound: state.currentRound + 1,
       };
     }
     default:
