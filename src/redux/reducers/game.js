@@ -4,10 +4,11 @@ import {
   CARD_VALUE_SELECTED,
 } from '../actionTypes';
 import { shuffle } from '../../helper';
+import { DEBUG } from '../../config';
 
 const initialState = {
   gameState: 'INACTIVE',
-  currentPlayers: {},
+  currentPlayers: {}, // TODO MAYBE CHANGE THIS TO ARRAY
 };
 
 // TODO EXPORT LOGIC TO SEPERATE FILES ???
@@ -60,8 +61,9 @@ const removeCardsFromPlayersDecks = currentPlayers => {
 
 // TODO EXPORT LOGIC TO SEPERATE FILES ???
 const getRoundWinnerId = (currentPlayers, seqId) => {
-  let winningPlayerId = '';
+  let winningPlayer = {};
   let currentHighestValue = 0;
+  let winningCard = {};
   // iterate through players
   Object.keys(currentPlayers).forEach(key => {
     const currentPlayer = currentPlayers[key];
@@ -76,12 +78,19 @@ const getRoundWinnerId = (currentPlayers, seqId) => {
         // TODO ADD DRAW POSSIBILITY
         if (value.value > currentHighestValue) {
           currentHighestValue = value.value;
-          winningPlayerId = currentPlayer.id;
+          winningPlayer = currentPlayer;
+          winningCard = currentCard;
         }
       }
     });
   });
-  return winningPlayerId;
+
+  // eslint-disable-next-line no-console
+  if (DEBUG) console.log('winningCard.title', winningCard.title);
+  // eslint-disable-next-line no-console
+  if (DEBUG) console.log('winningPlayer', winningPlayer);
+
+  return winningPlayer.id;
 };
 
 // TODO EXPORT LOGIC TO SEPERATE FILES ???
@@ -89,6 +98,7 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
   const currentPlayersWithNewCardsDistribution = {};
   const losingCards = [];
 
+  // TODO FIX BUG THAT CHANGES THE ORDER OF THE PLAYERS...
   // losing Players
   Object.keys(currentPlayers).forEach(key => {
     if (currentPlayers[key].id !== winningPlayerId) {
@@ -98,6 +108,9 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
         ...currentPlayers[key],
         deck: [...currentPlayers[key].deck.slice(1)],
       };
+
+      // eslint-disable-next-line no-console
+      if (DEBUG) console.log('losing', key);
     }
   });
 
@@ -112,8 +125,18 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
           ...currentPlayers[key].deck.slice(0, 1), // winning card
         ],
       };
+
+      // eslint-disable-next-line no-console
+      if (DEBUG) console.log('winning', key);
     }
   });
+
+  if (DEBUG)
+    // eslint-disable-next-line no-console
+    console.log(
+      `currentPlayersWithNewCardsDistribution`,
+      currentPlayersWithNewCardsDistribution
+    );
 
   return currentPlayersWithNewCardsDistribution;
 };
