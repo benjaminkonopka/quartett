@@ -19,25 +19,28 @@ class GameBoard extends PureComponent {
           <React.Fragment>
             {/* <!-- PLAYERS --> */}
             <div className="gameboard__cards">
-              {/* Move to own component with icons etc. 
+              {/* TODO Move to own component with icons etc. 
                   Separate Player1 from other Players */}
-              {Object.keys(currentPlayers).map(playerKey => {
-                const playerId = currentPlayers[playerKey].id;
-                const currentCard = currentPlayers[playerKey].deck[0];
-                return (
-                  <div key={playerId}>
-                    {/* PLAYER NAME */}
-                    <div>
-                      {playerKey}: {getPlayerById(playerId).name} - Karten{' '}
-                      {currentPlayers[playerKey].deck.length}
+              {Object.keys(currentPlayers)
+                .sort()
+                .map(playerKey => {
+                  const playerId = currentPlayers[playerKey].id;
+                  const currentCard = currentPlayers[playerKey].deck[0];
+                  return (
+                    <div key={playerId}>
+                      {/* PLAYER NAME */}
+                      <div>
+                        {playerKey}: {getPlayerById(playerId).name} - Karten{' '}
+                        {currentPlayers[playerKey].deck.length}
+                      </div>
+                      {/* PLAYER CARD */}
+                      <div>
+                        {/* TODO IF THERE IS NO CARD DON'T SHOW HIM */}
+                        <Card card={currentCard} playerId={playerId} />
+                      </div>
                     </div>
-                    {/* PLAYER CARD */}
-                    <div>
-                      <Card card={currentCard} playerId={playerId} />
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
               {/* --- */}
             </div>
           </React.Fragment>

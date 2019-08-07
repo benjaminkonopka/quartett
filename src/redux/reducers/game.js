@@ -98,7 +98,6 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
   const currentPlayersWithNewCardsDistribution = {};
   const losingCards = [];
 
-  // TODO FIX BUG THAT CHANGES THE ORDER OF THE PLAYERS...
   // losing Players
   Object.keys(currentPlayers).forEach(key => {
     if (currentPlayers[key].id !== winningPlayerId) {
