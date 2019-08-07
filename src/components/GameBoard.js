@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Card from './Card';
 // import { someAction } from '../redux/actions';
 
+import './GameBoard.scss';
+
 class GameBoard extends PureComponent {
   render() {
     const { gameState, currentRound, currentPlayers, players } = this.props;
@@ -12,7 +14,7 @@ class GameBoard extends PureComponent {
       return players.filter(player => player.id === id)[0];
     };
     return (
-      <div>
+      <div className="gameboard">
         {gameState === 'ACTIVE' ? (
           <React.Fragment>
             {/* <!-- ROUND COUNTER --> */}
@@ -20,7 +22,7 @@ class GameBoard extends PureComponent {
               <span>CurrentRound: {currentRound}</span>
             </div>
             {/* <!-- PLAYERS --> */}
-            <div>
+            <div className="gameboard__cards">
               {/* Move to own component with icons etc. 
                   Separate Player1 from other Players */}
               {Object.keys(currentPlayers).map(playerKey => {
@@ -31,11 +33,12 @@ class GameBoard extends PureComponent {
                   <div key={playerId}>
                     {/* PLAYER NAME */}
                     <div>
-                      {playerKey}: {getPlayerById(playerId).name}
+                      {playerKey}: {getPlayerById(playerId).name} - Karten{' '}
+                      {currentPlayers[playerKey].deck.length}
                     </div>
                     {/* PLAYER CARD */}
                     <div>
-                      <Card card={currentCard} />
+                      <Card card={currentCard} playerId={playerId} />
                     </div>
                   </div>
                 );

@@ -26,5 +26,6 @@ export const selectCardValueAction = payload => ({
   type: CARD_VALUE_SELECTED,
   payload: {
     seqId: payload.seqId,
+    playerId: payload.playerId,
   },
 });

@@ -7,9 +7,9 @@ import './Card.scss';
 import { selectCardValueAction } from '../redux/actions';
 
 class Card extends PureComponent {
-  selectCard(seqId) {
-    const { selectCardValue } = this.props;
-    selectCardValue({ seqId });
+  selectCardValueById(seqId) {
+    const { selectCardValue, playerId } = this.props;
+    selectCardValue({ seqId, playerId });
   }
 
   render() {
@@ -23,7 +23,10 @@ class Card extends PureComponent {
         </div>
         {values.map(value => (
           <div key={value.seqId}>
-            <button type="button" onClick={() => this.selectCard(value.seqId)}>
+            <button
+              type="button"
+              onClick={() => this.selectCardValueById(value.seqId)}
+            >
               <span>{value.title}</span>: <span>{value.value}</span>
             </button>
           </div>
@@ -40,6 +43,7 @@ Card.propTypes = {
     image: PropTypes.string,
     values: PropTypes.array,
   }).isRequired,
+  playerId: PropTypes.string.isRequired,
   selectCardValue: PropTypes.func.isRequired,
 };
 

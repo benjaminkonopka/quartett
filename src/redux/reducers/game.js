@@ -11,6 +11,7 @@ const initialState = {
   currentPlayers: {},
 };
 
+// TODO EXPORT LOGIC TO SEPERATE FILES ???
 const addPlayersById = (amount, players) => {
   const currentPlayers = {};
 
@@ -23,6 +24,7 @@ const addPlayersById = (amount, players) => {
   return currentPlayers;
 };
 
+// TODO EXPORT LOGIC TO SEPERATE FILES ???
 const shuffleCardsIntoPlayersDecks = (currentPlayers, cards) => {
   // SHUFFLE CARDS INTO EACH PLAYERS DECK
   const shuffledCards = shuffle(cards);
@@ -40,6 +42,7 @@ const shuffleCardsIntoPlayersDecks = (currentPlayers, cards) => {
   return currentPlayersWithCards;
 };
 
+// TODO EXPORT LOGIC TO SEPERATE FILES ???
 const removeCardsFromPlayersDecks = state => {
   const playerCount = Object.keys(state.currentPlayers).length;
   const currentPlayers = {};
@@ -51,6 +54,66 @@ const removeCardsFromPlayersDecks = state => {
     };
   }
   return currentPlayers;
+};
+
+// TODO EXPORT LOGIC TO SEPERATE FILES ???
+const getRoundWinnerId = (currentPlayers, seqId) => {
+  let winningPlayerId = '';
+  let currentHighestValue = 0;
+  // iterate through players
+  Object.keys(currentPlayers).forEach(key => {
+    const currentPlayer = currentPlayers[key];
+    const currentDeck = currentPlayer.deck;
+    const currentCard = currentDeck[0];
+
+    // iterate over the values
+    currentCard.values.forEach(value => {
+      // check selected value
+      if (value.seqId === seqId) {
+        // check highest winner
+        // TODO ADD DRAW POSSIBILITY
+        if (value.value > currentHighestValue) {
+          currentHighestValue = value.value;
+          winningPlayerId = currentPlayer.id;
+        }
+      }
+    });
+  });
+  return winningPlayerId;
+};
+
+// TODO EXPORT LOGIC TO SEPERATE FILES ???
+const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
+  const currentPlayersWithNewCardsDistribution = {};
+  const losingCards = [];
+
+  // losing Players
+  Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].id !== winningPlayerId) {
+      losingCards.push(...currentPlayers[key].deck.slice(0, 1));
+
+      currentPlayersWithNewCardsDistribution[key] = {
+        ...currentPlayers[key],
+        deck: [...currentPlayers[key].deck.slice(1)],
+      };
+    }
+  });
+
+  // winning player
+  Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].id === winningPlayerId) {
+      currentPlayersWithNewCardsDistribution[key] = {
+        ...currentPlayers[key],
+        deck: [
+          ...currentPlayers[key].deck.slice(1), // cards 2...x
+          ...losingCards, // losing players cards
+          ...currentPlayers[key].deck.slice(0, 1), // winning card
+        ],
+      };
+    }
+  });
+
+  return currentPlayersWithNewCardsDistribution;
 };
 
 export default function(state = initialState, action) {
@@ -79,13 +142,28 @@ export default function(state = initialState, action) {
         gameState: 'INACTIVE',
         currentPlayers: removeCardsFromPlayersDecks(state),
       };
-    case CARD_VALUE_SELECTED:
-      // COMPARE CARDS, DISTRIBUTE CARDS, CHECK WIN CONDITION
-      // TODO
-      // const cardValueId = action.payload.seqId;
+    case CARD_VALUE_SELECTED: {
+      // COMPARE CARDS
+      const winningPlayerId = getRoundWinnerId(
+        state.currentPlayers,
+        action.payload.seqId
+      );
+
+      // DISTRIBUTE CARDS
+      const currentPlayersNew = distributeCardsToWinner(
+        state.currentPlayers,
+        winningPlayerId
+      );
+
+      // TODO REMOVE PLAYER IF 0 CARDS
+      // TODO CHECK WIN CONDITION
+
       return {
         ...state,
+        currentPlayers: currentPlayersNew,
+        currentRound: state.currentRound + 1,
       };
+    }
     default:
       return state;
   }
