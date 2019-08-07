@@ -1,27 +1,13 @@
 // FISHER-YATES SHUFFLE ALGORITHM
 export const shuffle = array => {
-  const shuffeledArray = [];
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
+  const newArray = [...array];
 
-  // While there remain elements to shuffle...
-  while (currentIndex !== 0) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    if (Object.prototype.hasOwnProperty.call(shuffeledArray, currentIndex)) {
-      temporaryValue = shuffeledArray[currentIndex];
-    } else {
-      temporaryValue = array[currentIndex];
-    }
-    shuffeledArray[currentIndex] = array[randomIndex];
-    shuffeledArray[randomIndex] = temporaryValue;
+  for (let i = newArray.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
 
-  return shuffeledArray;
+  return newArray;
 };
 
 // card distribution for players
