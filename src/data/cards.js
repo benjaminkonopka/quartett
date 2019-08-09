@@ -117,6 +117,213 @@ const CARDS = [
       },
     ],
   },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-24531dff3841',
+    slug: 'pfeife',
+    title: 'Pfeife',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 1,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 1,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 1,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-24534dfa3841',
+    slug: 'kanyewest',
+    title: 'Kanye West',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 99,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 5,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 11,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-24631dfa3841',
+    slug: 'afrob',
+    title: 'Afrob',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 6,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 8,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 4,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-245g1dfa3841',
+    slug: 'tua',
+    title: 'Tua',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 4,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 4,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 10,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-2453hdfa3841',
+    slug: 'kiz',
+    title: 'KIZ',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 5,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 5,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 5,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4j00-a0e2-24531dfa3841',
+    slug: 'beginner',
+    title: 'Beginner',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 12,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 6,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 7,
+      },
+    ],
+  },
+  {
+    id: 'aa7g87d8-eeb2-4f00-a0e2-24531dfa3841',
+    slug: 'derwolf',
+    title: 'Der Wolf',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 2,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 1,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 1,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-24631dfa3841',
+    slug: 'trettmann',
+    title: 'Trettmann',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 8,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 7,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 7,
+      },
+    ],
+  },
+  {
+    id: 'aa7a87d8-eeb2-4f00-a0e2-24571dfa3841',
+    slug: 'fanta4',
+    title: 'Die Fantastischen Vier',
+    image: 'https://picsum.photos/200/300',
+    values: [
+      {
+        seqId: 1,
+        title: 'Singles',
+        value: 20,
+      },
+      {
+        seqId: 2,
+        title: 'Street Credibility',
+        value: 3,
+      },
+      {
+        seqId: 3,
+        title: 'Originalität',
+        value: 3,
+      },
+    ],
+  },
 ];
 
 export default CARDS;
