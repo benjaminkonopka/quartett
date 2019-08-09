@@ -11,6 +11,8 @@ const initialState = {
   currentPlayers: {}, // TODO MAYBE CHANGE THIS TO ARRAY
 };
 
+// !!! TODO MAYBE THIS WHOLE LOGIC NEEDS TO BE SOMEWHERE ELSE ??? maybe in GameBoard.js
+
 // TODO EXPORT LOGIC TO SEPERATE FILES ???
 const addPlayersById = (amount, players) => {
   const currentPlayers = {};
@@ -19,6 +21,7 @@ const addPlayersById = (amount, players) => {
     currentPlayers[`player${i + 1}`] = {
       id: players[i].id,
       deck: [],
+      state: 'ACTIVE',
     };
   }
   return currentPlayers;
@@ -33,6 +36,9 @@ const shuffleCardsIntoPlayersDecks = (currentPlayers, cards) => {
   const currentPlayersWithCards = {};
 
   Object.keys(currentPlayers).forEach((key, index) => {
+    if (currentPlayers[key].state !== 'ACTIVE') {
+      return;
+    }
     currentPlayersWithCards[key] = {
       ...currentPlayers[key],
       deck: shuffledCards.slice(
@@ -50,6 +56,9 @@ const removeCardsFromPlayersDecks = currentPlayers => {
   const currentPlayersUpdated = {};
 
   Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].state !== 'ACTIVE') {
+      return;
+    }
     currentPlayersUpdated[key] = {
       ...currentPlayers[key],
       deck: [],
@@ -64,8 +73,12 @@ const getRoundWinnerId = (currentPlayers, seqId) => {
   let winningPlayer = {};
   let currentHighestValue = 0;
   let winningCard = {};
+
   // iterate through players
   Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].state !== 'ACTIVE') {
+      return;
+    }
     const currentPlayer = currentPlayers[key];
     const currentDeck = currentPlayer.deck;
     const currentCard = currentDeck[0];
@@ -100,6 +113,9 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
 
   // losing Players
   Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].state !== 'ACTIVE') {
+      return;
+    }
     if (currentPlayers[key].id !== winningPlayerId) {
       losingCards.push(...currentPlayers[key].deck.slice(0, 1));
 
@@ -115,6 +131,9 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
 
   // winning player
   Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].state !== 'ACTIVE') {
+      return;
+    }
     if (currentPlayers[key].id === winningPlayerId) {
       currentPlayersWithNewCardsDistribution[key] = {
         ...currentPlayers[key],
@@ -138,6 +157,25 @@ const distributeCardsToWinner = (currentPlayers, winningPlayerId) => {
     );
 
   return currentPlayersWithNewCardsDistribution;
+};
+
+const checkPlayerCards = currentPlayers => {
+  const currentPlayersAfterDeckCheck = {};
+  Object.keys(currentPlayers).forEach(key => {
+    if (currentPlayers[key].state !== 'ACTIVE') {
+      return;
+    }
+    const state =
+      currentPlayers[key].deck.length > 0
+        ? currentPlayers[key].state
+        : 'GAME_OVER';
+    currentPlayersAfterDeckCheck[key] = { ...currentPlayers[key], state };
+  });
+
+  if (DEBUG)
+    // eslint-disable-next-line no-console
+    console.log(`currentPlayersAfterDeckCheck`, currentPlayersAfterDeckCheck);
+  return currentPlayersAfterDeckCheck;
 };
 
 export default function(state = initialState, action) {
@@ -167,6 +205,7 @@ export default function(state = initialState, action) {
         currentPlayers: removeCardsFromPlayersDecks(state.currentPlayers),
       };
     case CARD_VALUE_SELECTED: {
+      // !!! TODO MAYBE THIS WHOLE LOGIC NEEDS TO BE SOMEWHERE ELSE ??? maybe in GameBoard.js
       // COMPARE CARDS
       const winningPlayerId = getRoundWinnerId(
         state.currentPlayers,
@@ -179,12 +218,13 @@ export default function(state = initialState, action) {
         winningPlayerId
       );
 
-      // TODO REMOVE PLAYER IF 0 CARDS
+      const currentPlayersAfterDeckCheck = checkPlayerCards(currentPlayersNew);
+
       // TODO CHECK WIN CONDITION
 
       return {
         ...state,
-        currentPlayers: currentPlayersNew,
+        currentPlayers: currentPlayersAfterDeckCheck,
       };
     }
     default:

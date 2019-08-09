@@ -1,3 +1,5 @@
+//! NEEDS AT LEAST 5 VALUES
+
 const CARDS = [
   {
     id: 'e6d39fb5-3e40-42ab-9b85-442f4d36c630',
@@ -121,7 +123,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-24531dff3841',
     slug: 'pfeife',
     title: 'Pfeife',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/19/200/300',
     values: [
       {
         seqId: 1,
@@ -144,7 +146,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-24534dfa3841',
     slug: 'kanyewest',
     title: 'Kanye West',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/56/200/300',
     values: [
       {
         seqId: 1,
@@ -167,7 +169,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-24631dfa3841',
     slug: 'afrob',
     title: 'Afrob',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/16/200/300',
     values: [
       {
         seqId: 1,
@@ -190,7 +192,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-245g1dfa3841',
     slug: 'tua',
     title: 'Tua',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/13/200/300',
     values: [
       {
         seqId: 1,
@@ -213,7 +215,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-2453hdfa3841',
     slug: 'kiz',
     title: 'KIZ',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/12/200/300',
     values: [
       {
         seqId: 1,
@@ -236,7 +238,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4j00-a0e2-24531dfa3841',
     slug: 'beginner',
     title: 'Beginner',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/4/200/300',
     values: [
       {
         seqId: 1,
@@ -259,7 +261,7 @@ const CARDS = [
     id: 'aa7g87d8-eeb2-4f00-a0e2-24531dfa3841',
     slug: 'derwolf',
     title: 'Der Wolf',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/43/200/300',
     values: [
       {
         seqId: 1,
@@ -282,7 +284,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-24631dfa3841',
     slug: 'trettmann',
     title: 'Trettmann',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/2/200/300',
     values: [
       {
         seqId: 1,
@@ -305,7 +307,7 @@ const CARDS = [
     id: 'aa7a87d8-eeb2-4f00-a0e2-24571dfa3841',
     slug: 'fanta4',
     title: 'Die Fantastischen Vier',
-    image: 'https://picsum.photos/200/300',
+    image: 'https://picsum.photos/id/1/200/300/',
     values: [
       {
         seqId: 1,

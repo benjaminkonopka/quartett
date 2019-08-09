@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Card from './Card';
+import './CurrentPlayer.scss';
 
 class CurrentPlayer extends PureComponent {
   getPlayerById(id) {
@@ -16,20 +17,20 @@ class CurrentPlayer extends PureComponent {
     const player = this.getPlayerById(playerId);
 
     return (
-      <div key={playerId}>
+      <div className="currentPlayer">
         {/* PLAYER NAME */}
         <div>
           {playerKey}: {player.name} - Karten {currentPlayer.deck.length}
         </div>
         {/* PLAYER CARD */}
-        <div>
+        <React.Fragment>
           {/* TODO IF THERE IS NO CARD DON'T SHOW HIM */}
           {typeof currentCard !== 'undefined' ? (
             <Card card={currentCard} playerId={playerId} />
           ) : (
-            <div className="gameOver">gameOver</div>
+            <div className="currentPlayer__gameOver">gameOver</div>
           )}
-        </div>
+        </React.Fragment>
       </div>
     );
   }
