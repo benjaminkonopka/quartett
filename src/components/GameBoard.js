@@ -2,17 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import Card from './Card';
 // import { someAction } from '../redux/actions';
 
 import './GameBoard.scss';
+import CurrentPlayer from './CurrentPlayer';
 
 class GameBoard extends PureComponent {
   render() {
-    const { gameState, currentPlayers, players } = this.props;
-    const getPlayerById = id => {
-      return players.filter(player => player.id === id)[0];
-    };
+    const { gameState, currentPlayers } = this.props;
     return (
       <div className="gameboard">
         {gameState === 'ACTIVE' ? (
@@ -23,24 +20,13 @@ class GameBoard extends PureComponent {
                   Separate Player1 from other Players */}
               {Object.keys(currentPlayers)
                 .sort()
-                .map(playerKey => {
-                  const playerId = currentPlayers[playerKey].id;
-                  const currentCard = currentPlayers[playerKey].deck[0];
-                  return (
-                    <div key={playerId}>
-                      {/* PLAYER NAME */}
-                      <div>
-                        {playerKey}: {getPlayerById(playerId).name} - Karten{' '}
-                        {currentPlayers[playerKey].deck.length}
-                      </div>
-                      {/* PLAYER CARD */}
-                      <div>
-                        {/* TODO IF THERE IS NO CARD DON'T SHOW HIM */}
-                        <Card card={currentCard} playerId={playerId} />
-                      </div>
-                    </div>
-                  );
-                })}
+                .map(playerKey => (
+                  <CurrentPlayer
+                    key={playerKey}
+                    playerKey={playerKey}
+                    currentPlayer={currentPlayers[playerKey]}
+                  />
+                ))}
               {/* --- */}
             </div>
           </React.Fragment>
@@ -56,7 +42,6 @@ class GameBoard extends PureComponent {
 GameBoard.propTypes = {
   gameState: PropTypes.string.isRequired,
   currentPlayers: PropTypes.shape().isRequired,
-  players: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 // Map Redux State To Props
